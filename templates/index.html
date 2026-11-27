@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Availability Tracker</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">✦ Workora <span>Team Tracker</span></div>
+    <div class="live"><i></i> Live dashboard</div>
+  </header>
+
+  <main class="container">
+    <section class="heading">
+      <div>
+        <p class="eyebrow">TEAM MANAGEMENT</p>
+        <h1>Team Availability</h1>
+        <p class="sub">View and update your team's current working status.</p>
+      </div>
+      <button class="refresh" onclick="loadMembers()">↻ Refresh</button>
+    </section>
+
+    <section class="stats">
+      <div class="stat"><span>All members</span><strong id="total">0</strong></div>
+      <div class="stat"><span>Available</span><strong id="available">0</strong></div>
+      <div class="stat"><span>Busy</span><strong id="busy">0</strong></div>
+      <div class="stat"><span>Away</span><strong id="away">0</strong></div>
+    </section>
+
+    <section class="tools">
+      <input id="search" type="search" placeholder="Search team members..." oninput="renderMembers()">
+      <select id="roleFilter" onchange="renderMembers()">
+        <option value="All">All roles</option>
+        <option>Design</option><option>Product</option><option>Engineering</option><option>QA</option>
+      </select>
+      <select id="statusFilter" onchange="renderMembers()">
+        <option value="All">All statuses</option>
+        <option>Available</option><option>Busy</option><option>Away</option>
+      </select>
+    </section>
+
+    <div class="section-title">
+      <h2>Team members</h2>
+      <span id="shown">Loading...</span>
+    </div>
+    <section id="teamGrid" class="team-grid"></section>
+    <p class="footnote">Status changes are saved in the database. This page checks for updates every 5 seconds.</p>
+  </main>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
